@@ -6,7 +6,7 @@ class Hello extends Component {
     return (
       //class vs className => jsx: virtual Dom.  NB: class is reserved in JS
       <div className='f1 tc'>
-        <h1> Hello Universe !!!</h1>
+        <h1> Hello World !!!</h1>
         //this.props => accesses the greeting prop-erty of Hello in index.js
         <p> {this.props.greeting} </p>
         </div>
