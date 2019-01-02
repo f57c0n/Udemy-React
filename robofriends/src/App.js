@@ -15,7 +15,8 @@ class App extends Component {
             remember: onSearchChange is user-defined funtion => must follow function format*/
 
     onSearchChange = (event) => {
-        console.log(event.target.value);
+        {/*setState => like in Java, setting the value for searchfield*/}
+        this.setState({searchfield: event.target.value})
         {/*filter => predefine function in array*/}
         const filteredRobots = this.state.robots.filter(robot =>{
             return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
