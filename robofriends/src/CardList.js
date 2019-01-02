@@ -1,8 +1,7 @@
 import React from 'react';
 import Card from './Card';
-import { Robots } from './Robots';
 
-const CardList = ({ robots }) => {
+const CardList = ({ Robots }) => {
     return (
         <div> 
         {

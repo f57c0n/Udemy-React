@@ -17,18 +17,18 @@ class App extends Component {
     onSearchChange = (event) => {
         {/*setState => like in Java, setting the value for searchfield*/}
         this.setState({searchfield: event.target.value})
-        {/*filter => predefine function in array*/}
-        const filteredRobots = this.state.robots.filter(robot =>{
-            return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
-        })
     }
 
     render () {
+        {/*filter => predefine function in array to filter based on return condition*/}
+        const filteredRobots = this.state.robots.filter(robot =>{
+            return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
+        })
         return(
             <div className='tc'>
                 <h1>ROBOFRIENDS</h1>
                 <SearchBox searchChange={this.onSearchChange}/>
-                <CardList Robots={this.state.robots}/>
+                <CardList Robots={filteredRobots}/>
             </div>
         );
     }
