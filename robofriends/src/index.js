@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 //Father of all the components
-import App from './App';
+import App from './containers/App';
 
 import * as serviceWorker from './serviceWorker';
 
