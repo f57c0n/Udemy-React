@@ -2,12 +2,16 @@
 //list of life-cyle methods within react
 
 import React, {Component} from 'react';
-import './App.css';
+import { connect } from 'react-redux';
+import { setSearchField, requestRobots } from '../actions';
+
 import SearchBox from '../components/SearchBox';
 import CardList from '../components/CardList';
 import Scroll from '../components/Scroll';
 import ErrorBoundary from '../components/ErrorBoundary';
 //import { Robots } from './Robots';
+
+import './App.css';
 
 class App extends Component {
     constructor() {
@@ -42,6 +46,7 @@ class App extends Component {
         return !robots.length ?
           <h1>Loading</h1> :
           (
+            /* remember to use the same variable names being passed on the actual function called */
             <div className='tc'>
               <h1 className='f1'>RoboFriends</h1>
               <SearchBox searchChange={this.onSearchChange}/>
