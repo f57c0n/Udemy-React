@@ -1,0 +1,40 @@
+REVIEW:
+HTML:
+    forms,
+    onchange => listening for events
+
+
+JSx [review ES6]
+remember:
+${} =>
+'Class Name'.map(user, i) =>
+
+
+
+React Commands
+create-react-app 'filename'  => to create new project
+npm start => to start web app
+npm run build => optimizing the codes
+npm install redux => redux => only connects the container to the redux store
+
+
+React Features:
+PROPS
+STATE
+CHILDREN
+
+React Syntax:
+constructor =>
+render =>
+
+React Packages:
+Component:
+    filter =>
+
+
+OTHER LINKS:
+//tachyons.io
+import tachyons => similar to bootstrap => npm install tachyons
+
+//robohash.org
+to create random robots
