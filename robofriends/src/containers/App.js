@@ -28,25 +28,29 @@ class App extends Component {
             remember: onSearchChange is user-defined funtion => must follow function format*/
 
     onSearchChange = (event) => {
-        {/*setState => like in Java, setting the value for searchfield*/}
+        {/* setState => like in Java, setting the value for searchfield*/}
         this.setState({searchfield: event.target.value})
     }
 
-    render () {
-        {/*filter => predefine function in array to filter based on return condition*/}
-        const filteredRobots = this.state.robots.filter(robot =>{
-            return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
+    render() {
+        const { robots, searchfield } = this.state;
+        const filteredRobots = robots.filter(robot =>{
+          return robot.name.toLowerCase().includes(searchfield.toLowerCase());
         })
-        return(
+        /* !robots.length => means that if robots not empty since 0 is false*/
+        /* also remember if-then-else => condition ? true : false format */
+        return !robots.length ?
+          <h1>Loading</h1> :
+          (
             <div className='tc'>
-                <h1 className='f1'>ROBOFRIENDS</h1>
-                <SearchBox searchChange={this.onSearchChange}/>
-                <Scroll>
-                    <CardList Robots={filteredRobots}/>
-                </Scroll>
+              <h1 className='f1'>RoboFriends</h1>
+              <SearchBox searchChange={this.onSearchChange}/>
+              <Scroll>
+                <CardList Robots={filteredRobots} />
+              </Scroll>
             </div>
-        );
+          );
+      }
     }
-}
 
 export default App;
