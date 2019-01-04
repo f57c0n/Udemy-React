@@ -6,6 +6,7 @@ import './App.css';
 import SearchBox from '../components/SearchBox';
 import CardList from '../components/CardList';
 import Scroll from '../components/Scroll';
+import ErrorBoundary from '../components/ErrorBoundary';
 //import { Robots } from './Robots';
 
 class App extends Component {
@@ -28,7 +29,7 @@ class App extends Component {
             remember: onSearchChange is user-defined funtion => must follow function format*/
 
     onSearchChange = (event) => {
-        {/* setState => like in Java, setting the value for searchfield*/}
+        /* setState => like in Java, setting the value for searchfield*/
         this.setState({searchfield: event.target.value})
     }
 
@@ -46,7 +47,9 @@ class App extends Component {
               <h1 className='f1'>RoboFriends</h1>
               <SearchBox searchChange={this.onSearchChange}/>
               <Scroll>
-                <CardList Robots={filteredRobots} />
+                <ErrorBoundary>
+                  <CardList Robots={filteredRobots} />
+                </ErrorBoundary>
               </Scroll>
             </div>
           );

@@ -6,10 +6,10 @@ const CardList = ({ Robots }) => {
         <div> 
         {
             Robots.map((user, i) => {
-                {/*NB:  
+                /*NB:  
                     index.js:1446 Warning: Each child in an array or iterator should have a unique "key" prop.
                     See https://fb.me/react-warning-keys for more information
-                */}
+                */
                 return (<Card 
                         key={i} 
                         id={Robots[i].id} 
