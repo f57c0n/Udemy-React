@@ -27,7 +27,6 @@ class App extends Component {
 
     /*NB:  target.value takes the search input value from where onSearchChange is called [SearchBox.onchange]
             remember: onSearchChange is user-defined funtion => must follow function format*/
-
     onSearchChange = (event) => {
         /* setState => like in Java, setting the value for searchfield*/
         this.setState({searchfield: event.target.value})
@@ -35,7 +34,7 @@ class App extends Component {
 
     render() {
         const { robots, searchfield } = this.state;
-        const filteredRobots = robots.filter(robot =>{
+        const filteredRobots = robots.filter(robot => {
           return robot.name.toLowerCase().includes(searchfield.toLowerCase());
         })
         /* !robots.length => means that if robots not empty since 0 is false*/
@@ -48,7 +47,7 @@ class App extends Component {
               <SearchBox searchChange={this.onSearchChange}/>
               <Scroll>
                 <ErrorBoundary>
-                  <CardList Robots={filteredRobots} />
+                  <CardList theRobots={filteredRobots} />
                 </ErrorBoundary>
               </Scroll>
             </div>
