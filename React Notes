@@ -32,8 +32,10 @@ Component:
     filter =>
 
 REACT-REDUX CONCEPTS:
+ACTION/REDUCER
 STORE
 What does Provider and connect functions do?
+MIDDLEWARE => npm install redux-logger
 
 OTHER LINKS:
 //tachyons.io

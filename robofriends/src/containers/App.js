@@ -13,12 +13,13 @@ import ErrorBoundary from '../components/ErrorBoundary';
 
 import './App.css';
 
-// parameter state comes from index.js provider store state(rootReducers)
+// parameter state comes from index.js <provider store> state(rootReducers)
+// note that all the variables inside here are variables with states from reducers (they change values)
 const mapStateToProps = (state) => {
   return {
-    searchField: state.searchField,
-    //robots: state.requestRobots.robots,
-    //isPending: state.requestRobots.isPending
+    searchField: state.searchRobots.searchField,
+    robots: state.requestRobots.robots,
+    isPending: state.requestRobots.isPending
   }
 }
 
@@ -27,26 +28,33 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
-    //onRequestRobots: () => dispatch(requestRobots())
+    onRequestRobots: () => dispatch(requestRobots())
   }
 }
 
 class App extends Component {
-    constructor() {
-        super()
-        this.state={
-            robots: []
-        }
-    }
-
+  //constructor not needed anymore.  initialization managed by redux  
+  //constructor() {
+        //super()
+        //this.state={
+            //robots: []
+            //searchField: '' => move to mapStateToProps
+        //}
+    //}
+    
     /*NB:   using json placeholder to fetch "actual" 
-            this.props.store => after creating the store in index.js => getState is built-in*/
+            this.props.store => after creating the store in index.js => getState is built-in
+            remember that fetch here uses API and is async => to use redux, need to download redux-thunk among others
+    */
     componentDidMount() {
-        /* console.log(this.props.store.getState()) => to check what it does*/
-        fetch('https://jsonplaceholder.typicode.com/users')
-          .then(response=> response.json())
-          .then(users => {this.setState({ robots: users})});
+        // console.log(this.props.store.getState()) => to check what it does
+        // move 3 statements below to action
+        // fetch('https://jsonplaceholder.typicode.com/users')
+        //  .then(response=> response.json())
+        //  .then(users => {this.setState({ robots: users})});
+        this.props.onRequestRobots();
       }
+
 
     /*NB:  target.value takes the search input value from where onSearchChange is called [SearchBox.onchange]
             remember: onSearchChange is user-defined funtion => must follow function format
@@ -59,13 +67,14 @@ class App extends Component {
 
     render() {
 
-      const { robots } = this.state;
-      const { searchField, onSearchChange } = this.props;
+      //const { robots } = this.state; => now in redux
+      // this.props because these fields are now in redux
+      const { robots, searchField, onSearchChange, isPending } = this.props;
         const filteredRobots = robots.filter(robot => {
           return robot.name.toLowerCase().includes(searchField.toLowerCase());
         })
-        /* !robots.length => means that if robots not empty since 0 is false*/
-        /* also remember if-then-else => condition ? true : false format */
+        // !robots.length => means that if robots not empty since 0 is false
+        // also remember if-then-else => condition ? true : false format 
         return !robots.length ?
           <h1>Loading</h1> :
           (
