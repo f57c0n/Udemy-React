@@ -16,9 +16,9 @@ import './App.css';
 // parameter state comes from index.js provider store state(rootReducers)
 const mapStateToProps = (state) => {
   return {
-    searchField: state.searchRobots.searchField,
-    robots: state.requestRobots.robots,
-    isPending: state.requestRobots.isPending
+    searchField: state.searchField,
+    //robots: state.requestRobots.robots,
+    //isPending: state.requestRobots.isPending
   }
 }
 
@@ -27,7 +27,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
-    onRequestRobots: () => dispatch(requestRobots())
+    //onRequestRobots: () => dispatch(requestRobots())
   }
 }
 
@@ -35,8 +35,7 @@ class App extends Component {
     constructor() {
         super()
         this.state={
-            robots: [],
-            searchField: ''
+            robots: []
         }
     }
 
@@ -50,14 +49,18 @@ class App extends Component {
       }
 
     /*NB:  target.value takes the search input value from where onSearchChange is called [SearchBox.onchange]
-            remember: onSearchChange is user-defined funtion => must follow function format*/
+            remember: onSearchChange is user-defined funtion => must follow function format
+
     onSearchChange = (event) => {
-        /* setState => like in Java, setting the value for searchfield*/
+        /* setState => like in Java, setting the value for searchfield
         this.setState({searchField: event.target.value})
-    }
+    }  REMOVE CAUSE IT IS NOW IN mapDispatchToProps
+    */
 
     render() {
-        const { robots, searchField } = this.state;
+
+      const { robots } = this.state;
+      const { searchField, onSearchChange } = this.props;
         const filteredRobots = robots.filter(robot => {
           return robot.name.toLowerCase().includes(searchField.toLowerCase());
         })
@@ -69,7 +72,7 @@ class App extends Component {
             /* remember to use the same variable names being passed on the actual function called */
             <div className='tc'>
               <h1 className='f1'>RoboFriends</h1>
-              <SearchBox searchChange={this.onSearchChange}/>
+              <SearchBox searchChange={onSearchChange}/>
               <Scroll>
                 <ErrorBoundary>
                   <CardList theRobots={filteredRobots} />
