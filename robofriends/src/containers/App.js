@@ -22,8 +22,10 @@ class App extends Component {
         }
     }
 
-    /*NB:   using json placeholder to fetch "actual" */
+    /*NB:   using json placeholder to fetch "actual" 
+            this.props.store => after creating the store in index.js => getState is built-in*/
     componentDidMount() {
+        /* console.log(this.props.store.getState()) => to check what it does*/
         fetch('https://jsonplaceholder.typicode.com/users')
           .then(response=> response.json())
           .then(users => {this.setState({ robots: users})});
