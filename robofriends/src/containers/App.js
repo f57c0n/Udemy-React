@@ -13,12 +13,30 @@ import ErrorBoundary from '../components/ErrorBoundary';
 
 import './App.css';
 
+// parameter state comes from index.js provider store state(rootReducers)
+const mapStateToProps = (state) => {
+  return {
+    searchField: state.searchRobots.searchField,
+    robots: state.requestRobots.robots,
+    isPending: state.requestRobots.isPending
+  }
+}
+
+// dispatch the DOM changes to call an action. note mapStateToProps returns object, mapDispatchToProps returns function
+// the function returns an object then uses connect to change the data from redecers.
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
+    onRequestRobots: () => dispatch(requestRobots())
+  }
+}
+
 class App extends Component {
     constructor() {
         super()
         this.state={
             robots: [],
-            searchfield: ''
+            searchField: ''
         }
     }
 
@@ -35,13 +53,13 @@ class App extends Component {
             remember: onSearchChange is user-defined funtion => must follow function format*/
     onSearchChange = (event) => {
         /* setState => like in Java, setting the value for searchfield*/
-        this.setState({searchfield: event.target.value})
+        this.setState({searchField: event.target.value})
     }
 
     render() {
-        const { robots, searchfield } = this.state;
+        const { robots, searchField } = this.state;
         const filteredRobots = robots.filter(robot => {
-          return robot.name.toLowerCase().includes(searchfield.toLowerCase());
+          return robot.name.toLowerCase().includes(searchField.toLowerCase());
         })
         /* !robots.length => means that if robots not empty since 0 is false*/
         /* also remember if-then-else => condition ? true : false format */
@@ -62,4 +80,8 @@ class App extends Component {
       }
     }
 
-export default App;
+// action done from mapDispatchToProps will channge state from mapStateToProps
+// connect is higher order function => returns a function
+// this command allows App to subscribe/connect to the redux store.  any state changes there will take effect in App
+// export default connect()(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

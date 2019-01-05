@@ -31,8 +31,9 @@ React Packages:
 Component:
     filter =>
 
-REACT-redux CONCEPTS:
+REACT-REDUX CONCEPTS:
 STORE
+What does Provider and connect functions do?
 
 OTHER LINKS:
 //tachyons.io

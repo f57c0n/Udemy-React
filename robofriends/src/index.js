@@ -5,7 +5,9 @@ import 'tachyons';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider} from 'react-redux';
+// Provider passes down the store to the components
+// connect subscribes to store (become smart components => called containers)
+import { Provider, connect} from 'react-redux';
 import { createStore } from 'redux';
 
 import * as serviceWorker from './serviceWorker';
