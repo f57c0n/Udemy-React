@@ -9,6 +9,10 @@ import {
 
 export const setSearchField = (text) => ({ type: CHANGE_SEARCHFIELD, payload: text })
 
+//export const requestRobots = (dispatch) => {}
+//now make requestRobots a higher order function => a function that returns a function.
+//by redux-thunk, the below function is able to return another function, and that function returns the actions
+//below function is not receiving any parameters from the calling function, instead it runs another function => dispatch
 export const requestRobots = () => (dispatch) => {
   dispatch({ type: REQUEST_ROBOTS_PENDING });
   //built-in on fetch => response to convert to json, data to hold data from API, error otherwise

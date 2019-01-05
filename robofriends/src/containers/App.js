@@ -19,21 +19,24 @@ const mapStateToProps = (state) => {
   return {
     searchField: state.searchRobots.searchField,
     robots: state.requestRobots.robots,
-    isPending: state.requestRobots.isPending
+    isPending: state.requestRobots.isPending,
+    //error:  state.requestRobots.error
   }
 }
 
 // dispatch the DOM changes to call an action. note mapStateToProps returns object, mapDispatchToProps returns function
-// the function returns an object then uses connect to change the data from redecers.
+// the function returns an object then uses connect to change the data from reducers.
 const mapDispatchToProps = (dispatch) => {
   return {
     onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
+    //onRequestRobots: () => requestRobots(dispatch)
+    //below code is not passing any parameters, instead it just wants the function to run
     onRequestRobots: () => dispatch(requestRobots())
   }
 }
 
 class App extends Component {
-  //constructor not needed anymore.  initialization managed by redux  
+  //constructor not needed anymore.  no more react states.  state initialization managed by redux  
   //constructor() {
         //super()
         //this.state={
@@ -65,32 +68,32 @@ class App extends Component {
     }  REMOVE CAUSE IT IS NOW IN mapDispatchToProps
     */
 
-    render() {
-
-      //const { robots } = this.state; => now in redux
-      // this.props because these fields are now in redux
-      const { robots, searchField, onSearchChange, isPending } = this.props;
-        const filteredRobots = robots.filter(robot => {
-          return robot.name.toLowerCase().includes(searchField.toLowerCase());
-        })
-        // !robots.length => means that if robots not empty since 0 is false
-        // also remember if-then-else => condition ? true : false format 
-        return !robots.length ?
-          <h1>Loading</h1> :
-          (
-            /* remember to use the same variable names being passed on the actual function called */
-            <div className='tc'>
-              <h1 className='f1'>RoboFriends</h1>
-              <SearchBox searchChange={onSearchChange}/>
-              <Scroll>
-                <ErrorBoundary>
-                  <CardList theRobots={filteredRobots} />
-                </ErrorBoundary>
-              </Scroll>
-            </div>
-          );
-      }
-    }
+   render() {
+    //const { robots } = this.state; => now in redux
+    // this.props because these fields are now in redux
+    const { robots, searchField, onSearchChange, isPending } = this.props;
+    const filteredRobots = robots.filter(robot => {
+      return robot.name.toLowerCase().includes(searchField.toLowerCase());
+    })
+    return (
+      //move the next 2 statements in Scroll below
+      //!robots.length ?
+      //<h1>Loading</h1> :
+      // remember to use the same variable names being passed on the actual function called 
+      <div className='tc'>
+        <h1 className='f1'>RoboFriends</h1>
+        <SearchBox searchChange={onSearchChange}/>
+        <Scroll>
+          { isPending ? <h1>Loading</h1> :
+            <ErrorBoundary>
+              <CardList theRobots={filteredRobots} />
+            </ErrorBoundary>
+          }
+        </Scroll>
+      </div>
+    );
+  }
+}
 
 // action done from mapDispatchToProps will channge state from mapStateToProps
 // connect is higher order function => returns a function
