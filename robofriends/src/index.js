@@ -7,7 +7,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // Provider passes down the store to the components
 // connect subscribes to store (become smart components => called containers)
-import { Provider, connect} from 'react-redux';
+import { Provider} from 'react-redux';
 //applyMiddleware => function to apply any imported middleware
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 // thunkMiddleware => to be able to use action/reducers on Async actions / APIs
@@ -34,10 +34,10 @@ const store = createStore(rootReducers, applyMiddleware(thunkMiddleware, logger)
 // Wrapping App with Provider w/c will pass down store to all components in App 
 // store passes the states to App
 ReactDOM.render(
-                <Provider store={store}>
-                    <App/>
-                </Provider>
-                , document.getElementById('root'));
+    <Provider store={store}>
+        <App/>
+    </Provider>
+    , document.getElementById('root'));
 
 
 serviceWorker.unregister();

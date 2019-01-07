@@ -15,11 +15,12 @@ export const setSearchField = (text) => ({ type: CHANGE_SEARCHFIELD, payload: te
 //below function is not receiving any parameters from the calling function, instead it runs another function => dispatch
 export const requestRobots = () => (dispatch) => {
   dispatch({ type: REQUEST_ROBOTS_PENDING });
+  //move to api folders and make it a function
   //built-in on fetch => response to convert to json, data to hold data from API, error otherwise
-  fetch('https://jsonplaceholder.typicode.com/users')
-          .then(response=> response.json())
+  //fetch('https://jsonplaceholder.typicode.com/users')
+  //        .then(response=> response.json())
 
-  //apiCall('https://jsonplaceholder.typicode.com/users')
+  apiCall('https://jsonplaceholder.typicode.com/users')
           .then(data => dispatch({ type: REQUEST_ROBOTS_SUCCESS, payload: data }))
           .catch(error => dispatch({ type: REQUEST_ROBOTS_FAILED, payload: error }))
 }
